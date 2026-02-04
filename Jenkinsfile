@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/YOUR-USERNAME/simple-java-jenkins.git'
+                git remote add origin https://github.com/veda-jpg/simple-java-jenkins.git
             }
         }
 
