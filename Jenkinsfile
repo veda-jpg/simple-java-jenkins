@@ -6,9 +6,10 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git remote add origin https://github.com/veda-jpg/simple-java-jenkins.git
+                git branch: 'main',
+                    url: 'https://github.com/veda-jpg/simple-java-jenkins.git'
             }
         }
 
@@ -18,7 +19,7 @@ pipeline {
             }
         }
 
-        stage('Run App') {
+        stage('Run') {
             steps {
                 sh 'java -cp target/hello-jenkins-1.0.jar HelloWorld'
             }
