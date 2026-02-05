@@ -17,19 +17,14 @@ pipeline {
             steps {
                 sh 'mvn clean package'
             }
-        }
+       }
 
-        stage('Run') {
+        stage('Check jar') {
             steps {
-                sh 'java -cp target/hello-jenkins-1.0.jar HelloWorld'
+                sh 'ls -l target'
+                sh 'jar tf target/hello-jenkins-1.0.jar'
             }
-        }
-
-       stage('Check jar') {
-           steps {
-               sh 'jar tf target/hello-jenkins-1.0.jar'
-           }
-       }      
+        }   
 
     }
 }
