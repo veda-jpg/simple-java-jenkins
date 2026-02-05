@@ -24,6 +24,13 @@ pipeline {
                 sh 'java -cp target/hello-jenkins-1.0.jar HelloWorld'
             }
         }
+
+       stage('Check jar') {
+           steps {
+               sh 'jar tf target/hello-jenkins-1.0.jar'
+           }
+       }      
+
     }
 }
 
