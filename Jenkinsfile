@@ -1,31 +1,28 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'maven3'
-    }
-
     stages {
-        stage('Checkout') {
+
+        stage('Clone') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/veda-jpg/simple-java-jenkins.git'
+                git 'git@github.com:veda-jpg/simple-java-jenkins.git'
             }
         }
 
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                sh 'mvn clean package'
+                sh 'docker build -t node-app .'
             }
-       }
+        }
 
-        stage('Check jar') {
+        stage('Deploy Container') {
             steps {
-                sh 'ls -l target'
-                sh 'jar tf target/hello-jenkins-1.0.jar'
+                sh '''
+                docker rm -f node-app-container || true
+                docker run -d -p 8098:3000 --name node-app-container node-app
+                '''
             }
-        }   
-
+        }
     }
 }
 
